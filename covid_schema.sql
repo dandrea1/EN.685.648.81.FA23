@@ -28,9 +28,15 @@ observation_percent FLOAT
 
 -- create covid table
 CREATE TABLE covid_data(
-Week_Number DATE PRIMARY KEY,
+Week_Number DATE NOT NULL,
 cdc_report_dt INT, 
-death_yn VARCHAR(30)
+death_yn VARCHAR(3) NOT NULL,
+year INT,
+month INT,
+year_month VARCHAR(50),
+week_of_year INT,
+week_range VARCHAR(100),
+PRIMARY KEY(Week_Number, death_yn)
 	);
 
 -- create stock market table
@@ -51,7 +57,7 @@ CSV HEADER
 NULL 'NA'
 
 COPY covid_data 
-FROM '/home/jhu/Downloads/COVID-19_Case_Surveillance_Public_Use_Data_groupby_death.csv'
+FROM '/home/jhu/Downloads/COVID-19_Case_Surveillance_Public_clean.csv'
 DELIMITER ','
 CSV HEADER
 NULL 'NA'
