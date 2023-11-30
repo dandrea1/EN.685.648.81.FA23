@@ -47,7 +47,7 @@ CREATE TABLE stock_data(
 	low_price FLOAT,
 	close_price FLOAT,
 	adj_close FLOAT,
-	volume INT,
+	volume INT
 	);
 
 -- COPY data into the tables
