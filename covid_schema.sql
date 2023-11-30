@@ -40,7 +40,15 @@ PRIMARY KEY(Week_Number, death_yn)
 	);
 
 -- create stock market table
---TODO
+CREATE TABLE stock_data(
+	Week_number DATE PRIMARY KEY,
+	open_price FLOAT,
+	high_price FLOAT,
+	low_price FLOAT,
+	close_price FLOAT,
+	adj_close FLOAT,
+	volume INT,
+	);
 
 -- COPY data into the tables
 
@@ -62,4 +70,8 @@ DELIMITER ','
 CSV HEADER
 NULL 'NA'
 
--- TODO COPY stock market table 
+COPY stock_data
+from '/home/jhu/Downloads/spy_data.csv'
+DELIMITER ','
+CSV HEADER
+NULL 'NA'
