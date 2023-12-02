@@ -44,6 +44,11 @@ with DAG('process_student_data', default_args=default_args, schedule_interval='@
 			bash_command="psql -h localhost -d postgres -U jhu -f ~/EN.685.648.81.FA23-main/airflow_scripts/insert_data.sql",
 			dag=dag,
 		)
+	start_flask_api_task = BashOperator(
+		task_id = "start_flask_api",
+		bash_command = "python ~/EN.685.648.81.FA23-main/api/app.py",
+		dag=dag
+	)
 	# # The following tasks will send an email if the previous task fails
 	# email_failure_epa = EmailOperator(
 	# 	task_id="email_failure_epa",
@@ -102,5 +107,5 @@ with DAG('process_student_data', default_args=default_args, schedule_interval='@
 	# load_economic_task.on_failure_callback = email_failure_economic
 
 	# Execute loading tasks simultaneously then stores and emails completion
-	[load_epa_task, load_cdc_task, load_stock_task, load_economic_task] >> store_data_task  >> end_task
+	[load_epa_task, load_cdc_task, load_stock_task, load_economic_task] >> store_data_task  >> start_flask_api_task >> end_task
 	
