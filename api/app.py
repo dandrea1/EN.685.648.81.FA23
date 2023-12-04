@@ -16,9 +16,18 @@ def get_stock_data():
     resp_list = []
     cursor.close()
     db_connection.close()
-
     for item in data:
-        resp_list.append(item)
+        week_number, open, high, low, close, adj_close, volume = item
+        item_dict = {
+            "week": week_number,
+            "open": open,
+            "high": high,
+            "low": low,
+            "close": close,
+            "adj_close": adj_close,
+            "volume": volume
+        }
+        resp_list.append(item_dict)
     response = {
         "data": resp_list
     }
@@ -35,7 +44,16 @@ def get_emissions_data():
     db_connection.close()
 
     for item in data:
-        resp_list.append(item)
+        week_number, aqi, arithmetic_mean, first_max_value, observation_count, observation_percent = item
+        item_dict = {
+            "week_number": week_number,
+            "aqi": aqi,
+            "arithmetic_mean": arithmetic_mean,
+            "first_max_value": first_max_value,
+            "observation_count": observation_count,
+            "observation_percent": observation_percent
+        }
+        resp_list.append(item_dict)
     response = {
         "data": resp_list
     }
@@ -52,7 +70,17 @@ def get_economic_indicators():
     db_connection.close()
 
     for item in data:
-        resp_list.append(item)
+        week_number, gpd, real_gdp, unemployment_rate, interest_rate, funds_rate = item
+        item_dict = {
+            "week_number": week_number,
+            "gpd": gpd,
+            "real_gdp":real_gdp,
+            "unemployment_rate": unemployment_rate,
+            "interest_rate": interest_rate,
+            "funds_rate":funds_rate
+        }
+        resp_list.append(item_dict)
+
     response = {
         "data": resp_list
     }
@@ -69,7 +97,18 @@ def get_covid_data():
     db_connection.close()
 
     for item in data:
-        resp_list.append(item)
+        week_number, cdc_report_dt, death_yn, year, month, year_month, week_of_year, week_range = item
+        item_dict = {
+            "week_number":week_number,
+            "cdc_report_dt": cdc_report_dt,
+            "death_yn":death_yn,
+            "year":year,
+            "month":month,
+            "year_month":year_month,
+            "week_of_year":week_of_year,
+            "week_range": week_range
+        }
+        resp_list.append(item_dict)
     response = {
         "data": resp_list
     }
