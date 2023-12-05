@@ -8,19 +8,19 @@ from airflow.utils.trigger_rule import TriggerRule
 import subprocess
 
 
-# define the default arguments
+# Define the default arguments
 default_args = {
 	'owner': 'data_engineer',
 	'start_date': datetime(2023, 4, 6),
 	'retries': 1,
 	'retry_delay': timedelta(minutes=1)
 }
-	
+# This starts the flask api as a background task so that it does not stall the scheduler, and will continue the DAG
 def start_flask_api():
     command = "python ~/EN.685.648.81.FA23-main/api/app.py"
     subprocess.Popen(command, shell=True)
 
-# define the DAG
+# Define the DAG
 with DAG('process_student_data', default_args=default_args, schedule_interval='@weekly') as dag:
 
 	load_epa_task = BashOperator(
