@@ -53,25 +53,25 @@ CREATE TABLE stock_data(
 -- COPY data into the tables
 
 COPY economic_indicators 
-FROM '/home/jhu/Downloads/economic_indicators.csv'
+FROM '/home/jhu/Downloads/group3-final-project/economic_indicators.csv'
 DELIMITER ','
 CSV HEADER
 NULL ''
 
 COPY emissions_data 
-FROM '/home/jhu/Downloads/emissions_data_2017_2023.csv'
+FROM '/home/jhu/Downloads/group3-final-project/emissions_data_2017_2023.csv'
 DELIMITER ','
 CSV HEADER
 NULL 'NA'
 
 COPY covid_data 
-FROM '/home/jhu/Downloads/COVID-19_Case_Surveillance_Public_clean.csv'
+FROM '/home/jhu/Downloads/group3-final-project/COVID-19_Case_Surveillance_Public_clean.csv'
 DELIMITER ','
 CSV HEADER
 NULL 'NA'
 
 COPY stock_data
-from '/home/jhu/Downloads/spy_data.csv'
+from '/home/jhu/Downloads/group3-final-project/spy_data.csv'
 DELIMITER ','
 CSV HEADER
 NULL 'NA'
