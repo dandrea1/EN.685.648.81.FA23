@@ -78,7 +78,7 @@ Open localhost:8080 in a web browser to view the DAG
 
 --------------View Reports---------------
 To view or download reports on the data for further processing they can be accessed via flask API at:
-stock_api = "http://localhost:8001/api/spy"
-economics_api = "http://localhost:8001/api/economics"
-emissions_api = "http://localhost:8001/api/emissions"
-covid_api = "http://localhost:8001/api/covid"
+stock_api = http://localhost:8001/api/spy
+economics_api = http://localhost:8001/api/economics
+emissions_api = http://localhost:8001/api/emissions
+covid_api = http://localhost:8001/api/covid
