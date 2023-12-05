@@ -22,14 +22,15 @@ Run the following commands:
 2. pip install pandas
 3. pip install yfinance
 4. pip install pandas_datareader
-5. pip install psycopg2-binary
-6. export AIRFLOW_HOME=~/airflow
-7. airflow webserver -p 8080
+5. pip instapp matplotlib
+6. pip install psycopg2-binary
+7. export AIRFLOW_HOME=~/airflow
+8. airflow webserver -p 8080
 
 Open a second terminal tab
-8. conda activate airflow_env
-9. export AIRFLOW_HOME=~/airflow
-10. airflow scheduler
+9. conda activate airflow_env
+10. export AIRFLOW_HOME=~/airflow
+11. airflow scheduler
 
 Open a web browser to localhost:8080
 
@@ -43,15 +44,16 @@ Execute the following commands one at a time, except the airflow users create ca
 4. pip install yfinance
 5. pip install psycopg2-binary
 6. pip install pandas_datareader
-7. export AIRFLOW_HOME=~/airflow
-8. conda install -c conda-forge airflow
-9. airflow db init
-10. cd ~/airflow
+7. pip install matplotlib
+8. export AIRFLOW_HOME=~/airflow
+9. conda install -c conda-forge airflow
+10. airflow db init
+11. cd ~/airflow
 
 Using a text editor (nano in this case), change the line in the “airflow.cfg” file where it says load_examples from True to False. This will prevent the airflow UI from loading the example DAGs. These DAG examples can be helpful, but they also make it more difficult to find the DAGs you are creating for the assignment.
 
-11. mkdir dags
-12. airflow users create \
+12. mkdir dags
+13. airflow users create \
 --username admin \
 --password admin \
 --firstname Brandon \
@@ -61,13 +63,13 @@ Using a text editor (nano in this case), change the line in the “airflow.cfg�
 
 Move the file DAG.py inside the "EN.685.648.81.FA23-main/airflow_scripts" to the "~/airflow/dags" folder
 
-13. export AIRFLOW_HOME=~/airflow
-14. airflow webserver -p 8080
+14. export AIRFLOW_HOME=~/airflow
+15. airflow webserver -p 8080
 
 Open a second terminal tab and run these commands:
-15. conda activate airflow_env
-16. export AIRFLOW_HOME=~/airflow
-17. airflow scheduler
+16. conda activate airflow_env
+17. export AIRFLOW_HOME=~/airflow
+18. airflow scheduler
 
 Open a web browser to localhost:8080 
 Login is admin admin
