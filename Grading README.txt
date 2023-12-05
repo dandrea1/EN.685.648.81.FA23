@@ -15,6 +15,8 @@ Run the following commands one after the other:
 
 7. ctrl + d to exit postgres
 --------------If airflow is installed---------------
+Move the file DAG.py inside the "EN.685.648.81.FA23-main/airflow_scripts" to the "~/airflow/dags" folder
+
 Run the following commands:
 1. conda activate airflow_envconda a
 2. pip install pandas
@@ -57,6 +59,8 @@ Using a text editor (nano in this case), change the line in the â€œairflow.cfgâ€
 --role Admin \
 --email bmorrow5@jh.edu
 
+Move the file DAG.py inside the "EN.685.648.81.FA23-main/airflow_scripts" to the "~/airflow/dags" folder
+
 13. export AIRFLOW_HOME=~/airflow
 14. airflow webserver -p 8080
 
@@ -69,7 +73,7 @@ Open a web browser to localhost:8080
 Login is admin admin
 
 --------------Run the Airflow DAG---------------
-Move the file DAG.py inside the "EN.685.648.81.FA23-main/airflow_scripts" to the "~/airflow/dags" folder
+Open localhost:8080 in a web browser to view the DAG
 
 
 --------------View Reports---------------
