@@ -1,8 +1,7 @@
-import os
-import json
+import time
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
-from airflow.operators.email import EmailOperator
+from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
 from datetime import datetime, timedelta
 from airflow.utils.trigger_rule import TriggerRule
@@ -15,6 +14,9 @@ default_args = {
 	'retries': 1,
 	'retry_delay': timedelta(minutes=1)
 }
+def sleep():
+	time.sleep(20)  # Sleep for 20 seconds
+
 
 # define the DAG
 with DAG('process_student_data', default_args=default_args, schedule_interval='@weekly') as dag:
@@ -39,78 +41,33 @@ with DAG('process_student_data', default_args=default_args, schedule_interval='@
 			bash_command="python ~/EN.685.648.81.FA23-main/airflow_scripts/load_economic.py",
 			dag=dag
 		)
-	store_data_task = BashOperator(
-			task_id="store_data",
-			bash_command="psql -h localhost -d postgres -U jhu -f ~/EN.685.648.81.FA23-main/airflow_scripts/insert_data.sql",
+	update_database_task = BashOperator(
+			task_id="update_database",
+			bash_command="python ~/EN.685.648.81.FA23-main/airflow_scripts/update_database.py",
 			dag=dag,
 		)
 	start_flask_api_task = BashOperator(
 		task_id = "start_flask_api",
-		bash_command = "python ~/EN.685.648.81.FA23-main/api/app.py",
+		bash_command = "python ~/EN.685.648.81.FA23-main/api/app.py", 
 		dag=dag
-	)
+		)
+	continue_dag_task = PythonOperator(
+		task_id="continue_dag",
+		python_callable=sleep,
+		dag=dag,
+		trigger_rule=TriggerRule.ONE_SUCCESS
+		)
 	generate_report_task = BashOperator(
 		task_id = "generate_report",
 		bash_command = "python ~/EN.685.648.81.FA23-main/api/report.py",
-		dag=dag
+		dag=dag,
+		trigger_rule=TriggerRule.ONE_SUCCESS
 	)
-	# # The following tasks will send an email if the previous task fails
-	# email_failure_epa = EmailOperator(
-	# 	task_id="email_failure_epa",
-	# 	to="brandonmorrow1010@gmail.com",
-	# 	subject="EPA Data Load Failure",
-	# 	html_content="<p>The EPA data load task failed in your Airflow pipeline.</p>",
-	# 	dag=dag,
-	# 	trigger_rule=TriggerRule.ONE_FAILED
-	# 	)
-
-	# email_failure_cdc = EmailOperator(
-	# 	task_id="email_failure_cdc",
-	# 	to="brandonmorrow1010@gmail.com",
-	# 	subject="CDC Data Load Failure",
-	# 	html_content="<p>The CDC data load task failed in your Airflow pipeline.</p>",
-	# 	dag=dag,
-	# 	trigger_rule=TriggerRule.ONE_FAILED
-	# 	)	
-
-	# email_failure_stock = EmailOperator(
-	# 	task_id="email_failure_stock",
-	# 	to="brandonmorrow1010@gmail.com",
-	# 	subject="Stock Data Load Failure",
-	# 	html_content="<p>The Stock data load task failed in your Airflow pipeline.</p>",
-	# 	dag=dag,
-	# 	trigger_rule=TriggerRule.ONE_FAILED
-	# 	)
-
-	# email_failure_economic = EmailOperator(
-	# 	task_id="email_failure_economic",
-	# 	to="brandonmorrow1010@gmail.com",
-	# 	subject="Economic Data Load Failure",
-	# 	html_content="<p>The Economic data load task failed in your Airflow pipeline.</p>",
-	# 	dag=dag,
-	# 	trigger_rule=TriggerRule.ONE_FAILED
-	# 	)	
-
-	# # The following task will send an email if the previous tasks succeed
-	# email_completed_task= EmailOperator(
-	# 		task_id="email_completed",
-	# 		to="brandonmorrow1010@gmail.com",
-	# 		subject="Covid Data Updated",
-	# 		html_content="""<p>Your Airflow pipeline has completed successfully, and the following database has been updated: Covid Data</p>""",
-	# 		dag=dag
-	# 	)
-	# The following task will end the DAG if the previous tasks succeed
-
 	end_task = DummyOperator(task_id="end",   
 				trigger_rule=TriggerRule.ONE_SUCCESS,
 		)
 
-	# # The following tasks will send an email if the previous task fails
-	# load_epa_task.on_failure_callback = email_failure_epa
-	# load_cdc_task.on_failure_callback = email_failure_cdc
-	# load_stock_task.on_failure_callback = email_failure_stock
-	# load_economic_task.on_failure_callback = email_failure_economic
-
 	# Execute loading tasks simultaneously then stores and emails completion
-	[load_epa_task, load_cdc_task, load_stock_task, load_economic_task] >> store_data_task  >> start_flask_api_task >> generate_report_task >> end_task
+	[load_epa_task, load_cdc_task, load_stock_task, load_economic_task] >> update_database_task  >> [continue_dag_task, start_flask_api_task] 
+	continue_dag_task >> generate_report_task >> end_task
 	
