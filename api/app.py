@@ -11,7 +11,7 @@ app = Flask(__name__)
 def get_stock_data():
     db_connection = _get_db_connection()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT * FROM covid.stock_data;")
+    cursor.execute("SELECT * FROM covid.stock_data where stock_data.week_number  >= '2020-01-01';")
     data = cursor.fetchall()
     resp_list = []
     cursor.close()
@@ -37,7 +37,7 @@ def get_stock_data():
 def get_emissions_data():
     db_connection = _get_db_connection()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT * FROM covid.emissions_data;")
+    cursor.execute("SELECT * FROM covid.emissions_data where emissions_data.week_number >= '2020-01-01';")
     data = cursor.fetchall()
     resp_list = []
     cursor.close()
@@ -63,7 +63,7 @@ def get_emissions_data():
 def get_economic_indicators():
     db_connection = _get_db_connection()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT * FROM covid.economic_indicators;")
+    cursor.execute("select * from covid.economic_indicators where economic_indicators.week_number >= '2020-01-01';")
     data = cursor.fetchall()
     resp_list = []
     cursor.close()
