@@ -8,7 +8,7 @@ CREATE SCHEMA covid
 -- create economic indicator table
 CREATE TABLE economic_indicators(
 Week_Number DATE PRIMARY KEY,
-gpd FLOAT(3), 
+gdp FLOAT(3), 
 real_gdp FLOAT(3),
 unemployment_rate FLOAT(1),
 interest_rate FLOAT(8),
