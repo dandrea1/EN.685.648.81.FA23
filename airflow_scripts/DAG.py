@@ -49,6 +49,11 @@ with DAG('process_student_data', default_args=default_args, schedule_interval='@
 		bash_command = "python ~/EN.685.648.81.FA23-main/api/app.py",
 		dag=dag
 	)
+	generate_report_task = BashOperator(
+		task_id = "generate_report",
+		bash_command = "python ~/EN.685.648.81.FA23-main/api/report.py",
+		dag=dag
+	)
 	# # The following tasks will send an email if the previous task fails
 	# email_failure_epa = EmailOperator(
 	# 	task_id="email_failure_epa",
@@ -107,5 +112,5 @@ with DAG('process_student_data', default_args=default_args, schedule_interval='@
 	# load_economic_task.on_failure_callback = email_failure_economic
 
 	# Execute loading tasks simultaneously then stores and emails completion
-	[load_epa_task, load_cdc_task, load_stock_task, load_economic_task] >> store_data_task  >> start_flask_api_task >> end_task
+	[load_epa_task, load_cdc_task, load_stock_task, load_economic_task] >> store_data_task  >> start_flask_api_task >> generate_report_task >> end_task
 	
