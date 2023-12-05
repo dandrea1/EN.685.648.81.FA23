@@ -1,4 +1,4 @@
-Download all files in this folder and move to home directory inside class VM "~/EN.685.648.81.FA23-main"
+Download all files in this folder and move to the home directory inside class VM "~/EN.685.648.81.FA23-main"
 Navigate to this folder in the terminal.
 
 1. cd EN.685.648.81.FA23-main
@@ -70,3 +70,11 @@ Login is admin admin
 
 --------------Run the Airflow DAG---------------
 Move the file DAG.py inside the "EN.685.648.81.FA23-main/airflow_scripts" to the "~/airflow/dags" folder
+
+
+--------------View Reports---------------
+To view or download reports on the data for further processing they can be accessed via flask API at:
+stock_api = "http://localhost:8001/api/spy"
+economics_api = "http://localhost:8001/api/economics"
+emissions_api = "http://localhost:8001/api/emissions"
+covid_api = "http://localhost:8001/api/covid"
