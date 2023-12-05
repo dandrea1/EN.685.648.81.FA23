@@ -78,9 +78,18 @@ Login is admin admin
 Open localhost:8080 in a web browser to view the DAG
 
 
+--------------Run the flask app---------------
+To run the flask app, run the following command to start the web server. This is necessary to make API calls.
+python api/app.py
+
 --------------View Reports---------------
 To view or download reports on the data for further processing they can be accessed via flask API at:
 stock_api = http://localhost:8001/api/spy
 economics_api = http://localhost:8001/api/economics
 emissions_api = http://localhost:8001/api/emissions
 covid_api = http://localhost:8001/api/covid
+
+--------------Generate Charts---------------
+The report.py script will call the APIs and generate some charts and save them in the api/ folder.
+To generate those, run the following:
+python api/report.py
