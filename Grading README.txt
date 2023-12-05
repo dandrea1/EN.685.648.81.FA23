@@ -18,7 +18,7 @@ Run the following commands one after the other:
 Move the file DAG.py inside the "EN.685.648.81.FA23-main/airflow_scripts" to the "~/airflow/dags" folder
 
 Run the following commands:
-1. conda activate airflow_envconda a
+1. conda activate airflow_env
 2. pip install pandas
 3. pip install yfinance
 4. pip install pandas_datareader
