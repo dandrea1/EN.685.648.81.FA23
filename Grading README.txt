@@ -1,7 +1,7 @@
 Download all files in this folder and move to home directory inside class VM "~/EN.685.648.81.FA23-main"
 Navigate to this folder in the terminal.
 
-cd EN.685.648.81.FA23-main
+1. cd EN.685.648.81.FA23-main
 
 --------------Create the COVID database---------------
 Run the following commands one after the other:
@@ -16,7 +16,7 @@ Run the following commands one after the other:
 7. ctrl + d to exit postgres
 --------------If airflow is installed---------------
 Run the following commands:
-1. conda activate airflow_env
+1. conda activate airflow_envconda a
 2. pip install pandas
 3. pip install yfinance
 4. pip install pandas_datareader
@@ -44,7 +44,7 @@ Execute the following commands one at a time, except the airflow users create ca
 7. export AIRFLOW_HOME=~/airflow
 8. conda install -c conda-forge airflow
 9. airflow db init
-10. cd airflow
+10. cd ~/airflow
 
 Using a text editor (nano in this case), change the line in the “airflow.cfg” file where it says load_examples from True to False. This will prevent the airflow UI from loading the example DAGs. These DAG examples can be helpful, but they also make it more difficult to find the DAGs you are creating for the assignment.
 
