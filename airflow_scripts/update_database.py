@@ -11,7 +11,6 @@ def import_csv_to_postgres():
     password = 'jhu123'  
     host = 'localhost'
 
-    # Define your file paths and table names
     files_and_tables = {
         '~/EN.685.648.81.FA23-main/airflow_scripts/economic_indicators.csv': 'covid.economic_indicators',
         '~/EN.685.648.81.FA23-main/airflow_scripts/emissions_data.csv': 'covid.emissions_data',
